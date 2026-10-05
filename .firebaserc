@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "dopp-sequencer"
+  },
+  "targets": {
+    "dopp-sequencer": {
+      "hosting": {
+        "vastiming": [
+          "dopp-vas-timing"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

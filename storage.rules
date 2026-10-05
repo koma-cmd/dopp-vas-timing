@@ -1,0 +1,19 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // recordings/ 配下：書き込み(アップロード)のみ許可。読み取り・削除・上書きは不可。
+    match /recordings/{fileName} {
+      allow read:   if false;
+      allow delete: if false;
+      allow update: if false; // 上書き禁止（同名ファイルへの再アップロードも不可）
+      allow create: if request.resource.size < 20 * 1024 * 1024
+                    && request.resource.contentType.matches('audio/.*');
+    }
+
+    // それ以外のパスは全て拒否
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
